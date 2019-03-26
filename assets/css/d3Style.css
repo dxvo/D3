@@ -1,6 +1,6 @@
 .aText {
   font-family: sans-serif;
-  font-size: 16px;
+  font-size: 20px;
   text-anchor: middle;
 }
 
@@ -68,3 +68,8 @@
     font-size: 13px;
   }
 }
+
+p:first-line {
+    text-indent:30px;
+}
+
