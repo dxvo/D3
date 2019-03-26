@@ -29,7 +29,7 @@ svg.append("text")
         .attr("text-anchor", "middle")  
         .style("font-size", "24px") 
         .style("text-decoration", "underline")  
-        .text("Median Income vs Obesity In USA");
+        .text(" Healthcare vs Poverty For All States The US");
 
 var chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
@@ -37,17 +37,17 @@ var chartGroup = svg.append("g")
 // Import Data
 d3.csv("data.csv").then(function(csvData) {
     csvData.forEach(function(data) {
-      data.obesity = +data.obesity;
-      data.income = +data.income;
+      data.poverty = +data.poverty;
+      data.healthcare = +data.healthcare;
     });
 
     //Scale functio0n for x and y 
     var xLinearScale = d3.scaleLinear()
-      .domain([38000, d3.max(csvData, d => d.income)])
+      .domain([8, d3.max(csvData, d => d.poverty)])
       .range([0, width]);
 
     var yLinearScale = d3.scaleLinear()
-      .domain([20, d3.max(csvData, d => d.obesity)])
+      .domain([4, d3.max(csvData, d => d.healthcare)+2])
       .range([height, 0]);
 
     // Create x and y axes 
@@ -66,8 +66,8 @@ d3.csv("data.csv").then(function(csvData) {
     .data(csvData)
     .enter()
     .append("circle")
-    .attr("cx", d => xLinearScale(d.income))
-    .attr("cy", d => yLinearScale(d.obesity))
+    .attr("cx", d => xLinearScale(d.poverty))
+    .attr("cy", d => yLinearScale(d.healthcare))
     .attr("r", "12")
     .attr("fill", "#9DA5F0")
     .attr("opacity", ".6")
@@ -78,7 +78,7 @@ d3.csv("data.csv").then(function(csvData) {
       .attr("class", "d3-tip")
       .offset([10, 60])
       .html(function(d) {
-        return (`${d.abbr}<br>Income: $${d.income}<br>Obese: ${d.obesity}%`);
+        return (`${d.abbr}<br>healthcare: ${d.healthcare}%<br>Poverty: ${d.poverty}%`);
       });
     chartGroup.call(toolTip);
     
@@ -92,10 +92,10 @@ d3.csv("data.csv").then(function(csvData) {
         .enter()
         .append("tspan")
             .attr("x", function(data) {
-                return xLinearScale(data.income);
+                return xLinearScale(data.poverty);
             })
             .attr("y", function(data) {
-                return yLinearScale(data.obesity);
+                return yLinearScale(data.healthcare);
             })
             .text(function(data) {
                 return data.abbr
@@ -118,10 +118,10 @@ d3.csv("data.csv").then(function(csvData) {
       .attr("x", 0 - (height / 2))
       .attr("dy", "1em")
       .attr("class", "aText")
-      .text("Obese (%)");
+      .text("Lack Healthcare (%)");
 
     chartGroup.append("text")
       .attr("transform", `translate(${width / 2.1}, ${height + margin.top+30})`)
       .attr("class", "aText")
-      .text("Median Household Income");
+      .text(" Poverty (%)");
   });
