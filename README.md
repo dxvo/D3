@@ -1,5 +1,5 @@
 # Data Journalism and D3
-
+![Link to Static Site](https://dxvo.github.io/D3/)
 ![image](https://user-images.githubusercontent.com/42792976/54974831-53ee6600-4f63-11e9-90eb-c36e7b70dd6e.png)
 
 ## Incorporate d3-tip
